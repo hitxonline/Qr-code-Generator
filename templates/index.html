@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR code generator</title>
+    <link rel="stylesheet" href="static/style.css">
+    <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+      <div class="row">
+        <div class="col-md-6" style="margin-bottom: 50px; ">
+          <img style="height: 380px;" src="{% if qr_code %}{% for i in qr_code %}/media/{{i.image}}{% endfor %}{% else %}static/developer.jpg{% endif %}" alt="background">
+          <div style="margin-left: 70px;">{% if qr_code %}{% for i in qr_code %}<a id="download" href="/media/{{i.image}}" download >DOWNLOAD</a>{% endfor %}{% endif %}</div>
+        </div>
+        <div class="col-md-4">
+          <img src="https://hitx.netlify.app/assets/images/hitx.png" alt="logo">
+          <div class="inputs">
+            <form method="post" >
+              {% csrf_token %}
+              <label>LINK</label>
+              <input type="text" name='link' placeholder="Link for generate QR code" />
+              <label>LINK FROM</label>
+              <input type="text" name='link_from' placeholder="Example: Website, Instagram, Facebook" />
+              <label>HOLDER STATUS</label> 
+              <select name="holder_status" id="input">
+                <option value="my">MY</option>
+                <option value="our">OUR</option>
+                <option value="your">YOUR</option>
+                <option value="thir">THEIR</option>
+              </select>
+              <button style="width: 120px; float: right;margin: 10px;" type="submit">SUBMIT</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
